@@ -1,0 +1,50 @@
+import React, { useState } from 'react';
+
+const Calculator = () => {
+  const [principal, setPrincipal] = useState('');
+  const [rate, setRate] = useState('');
+  const [tenure, setTenure] = useState('');
+  const [result, setResult] = useState('');
+
+  const calculateMaturityAmount = () => {
+    const p = parseFloat(principal);
+    const r = parseFloat(rate) / 100;
+    const t = parseFloat(tenure);
+    const maturityAmount = p * Math.pow(1 + r, t);
+    setResult(maturityAmount.toFixed(2));
+  };
+
+  return (
+    <div>
+      <h1>Fixed Deposit Calculator</h1>
+      <div>
+        <label>Principal Amount:</label>
+        <input
+          type="number"
+          value={principal}
+          onChange={(e) => setPrincipal(e.target.value)}
+        />
+      </div>
+      <div>
+        <label>Annual Interest Rate (%):</label>
+        <input
+          type="number"
+          value={rate}
+          onChange={(e) => setRate(e.target.value)}
+        />
+      </div>
+      <div>
+        <label>Tenure (years):</label>
+        <input
+          type="number"
+          value={tenure}
+          onChange={(e) => setTenure(e.target.value)}
+        />
+      </div>
+      <button onClick={calculateMaturityAmount}>Calculate</button>
+      {result && <div>Maturity Amount: {result}</div>}
+    </div>
+  );
+};
+
+export default Calculator;
